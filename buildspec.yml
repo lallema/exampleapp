@@ -3,5 +3,9 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - echo "test build with github"
-      - echo $CODEBUILD_RESOLVED_SOURCE_VERSION
+      - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+      - IMAGE_TAG=${COMMIT_HASH:=latest}
+      - REPO_URL=https://github.com/lallema/$IMAGE_REPO_NAME
+      - pwd
+      - ls -trl
+      - hostname
