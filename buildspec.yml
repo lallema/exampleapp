@@ -15,7 +15,7 @@ phases:
       - chmod 400 ~/.ssh/id_rsa
       - echo "INSTANCE=$INSTANCE"
       - echo "IMAGE_TAG=$IMAGE_TAG"
-      - ssh -o StrictHostKeyChecking=no ubuntu@$INSTANCE "/home/ubuntu/app-git/build.sh $REPO_URL"
+      - ssh -o StrictHostKeyChecking=no ubuntu@$INSTANCE "/home/ubuntu/app-git/build.sh $REPO_URL $IMAGE_TAG"
   post_build:
     commands:
       - echo "starting post build 2"
