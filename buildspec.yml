@@ -25,4 +25,4 @@ phases:
       - chmod 400 ~/.ssh/id_rsa
       - echo "INSTANCE=$INSTANCE"
       - echo "IMAGE_TAG=$IMAGE_TAG"
-      - ssh -o StrictHostKeyChecking=no ubuntu@$INSTANCE "/home/ubuntu/app-git/deploy.sh $REPO_URL $IMAGE_TAG"
+      - ssh -o StrictHostKeyChecking=no ubuntu@$INSTANCE "/home/ubuntu/app-git/deploy.sh $IMAGE_TAG $CONTAINER_NAME"
