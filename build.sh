@@ -11,3 +11,6 @@ cd $LOCAL_PATH
 echo "CURRENT DIRECTORY="`pwd`
 docker build -t $REPO_URL:latest .
 docker tag $REPO_URL:latest $REPO_URL:$IMAGE_TAG
+
+docker push $REPO_URL:$IMAGE_TAG
+docker push $REPO_URL:latest
