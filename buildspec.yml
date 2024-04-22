@@ -4,3 +4,4 @@ phases:
   pre_build:
     commands:
       - echo "test build with github"
+      - echo $CODEBUILD_RESOLVED_SOURCE_VERSION
