@@ -3,7 +3,7 @@ const app = express()
 const port = 3000
 app.use(express.json())
 app.get('/', (req, res) => {
-    res.json({message: 'GITHUB TRY 4 - Hellow World AWS Tho a dit: Helloww ca se termine pas par W try 1'})
+    res.json({message: 'FROM GITHUB TRY 5 - Hellow World AWS Tho a dit: Helloww ca se termine pas par W try 1'})
 })
 let server  = app.listen(port, () => {
   console.log(`example app listening at port ${port}`)
