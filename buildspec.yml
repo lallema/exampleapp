@@ -18,7 +18,7 @@ phases:
       - ssh -o StrictHostKeyChecking=no ubuntu@$INSTANCE "/home/ubuntu/app-git/build.sh $REPO_URL"
   post_build:
     commands:
-      - echo "starting post build 1"
+      - echo "starting post build 2"
  #     - docker push $REPO_URL:$IMAGE_TAG
  #     - docker push $REPO_URL:latest
  #     - echo "$SSH_KEY"
