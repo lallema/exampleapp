@@ -1,30 +1,15 @@
-version: 0.2
-
-phases:
-  pre_build:
-    commands:
-      - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
-      - IMAGE_TAG=${COMMIT_HASH:=latest}
-      - REPO_URL=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME
-  build:
-    commands:
-#      - docker build -t $REPO_URL:latest .
-#      - docker tag $REPO_URL:latest $REPO_URL:$IMAGE_TAG
-      - echo "$SSH_KEY"
-      - echo "$SSH_KEY" > ~/.ssh/id_rsa
-      - chmod 400 ~/.ssh/id_rsa
-      - echo "INSTANCE=$INSTANCE"
-      - echo "IMAGE_TAG=$IMAGE_TAG"
-      - ssh -o StrictHostKeyChecking=no ubuntu@$INSTANCE "/home/ubuntu/app-git/build.sh $REPO_URL $IMAGE_TAG"
-      - ssh -o StrictHostKeyChecking=no ubuntu@$INSTANCE "/home/ubuntu/app-git/push.sh $REPO_URL $IMAGE_TAG"
-  post_build:
-    commands:
-      - echo "starting post build 2"
- #     - docker push $REPO_URL:$IMAGE_TAG
- #     - docker push $REPO_URL:latest
- #     - echo "$SSH_KEY"
- #     - echo "$SSH_KEY" > ~/.ssh/id_rsa
- #     - chmod 400 ~/.ssh/id_rsa
- #     - echo "INSTANCE=$INSTANCE"
- #     - echo "IMAGE_TAG=$IMAGE_TAG"
- #     - ssh -o StrictHostKeyChecking=no ubuntu@$INSTANCE "/home/ubuntu/app-git/deploy.sh $IMAGE_TAG $CONTAINER_NAME"
+#!/bin/bash
+export TAG=$1
+export CONTAINER_NAME=$2
+echo "GITHUB sources"
+echo "Hostname = "`hostname`
+echo "COMMAND info == docker stop $CONTAINER_NAME"
+echo "COMMAND info == docker container rm $CONTAINER_NAME"
+echo "COMMAND info == docker pull 992382634925.dkr.ecr.eu-west-3.amazonaws.com/exampleapp:$TAG"
+echo "COMMAND info == docker run -dti -p 80:3000 --name $CONTAINER_NAME 992382634925.dkr.ecr.eu-west-3.amazonaws.com/exampleapp:$TAG"
+docker ps -a
+docker images
+docker stop $CONTAINER_NAME
+docker container rm $CONTAINER_NAME
+docker pull 992382634925.dkr.ecr.eu-west-3.amazonaws.com/exampleapp:$TAG
+docker run -dti -p 80:3000 --name $CONTAINER_NAME 992382634925.dkr.ecr.eu-west-3.amazonaws.com/exampleapp:$TAG
