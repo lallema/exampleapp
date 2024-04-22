@@ -7,4 +7,5 @@ echo "Start building image"
 echo "Hostname = "`hostname`
 echo "REPO_URL = $REPO_URL"
 cd $LOCAL_PATH
+echo "CURRENT DIRECTORY="`pwd`
 docker build -t $REPO_URL:latest .
