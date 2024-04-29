@@ -20,6 +20,7 @@ if docker ps -a | grep -q "$CONTAINER_NAME"; then
 fi
 
 # Démarrer un nouveau conteneur
+sudo usermod -aG docker ubuntu
 echo "Démarrage d'un nouveau conteneur..."
 docker pull 992382634925.dkr.ecr.eu-west-3.amazonaws.com/exampleapp:$TAG
 docker run -dti -p 80:3000 --name $CONTAINER_NAME 992382634925.dkr.ecr.eu-west-3.amazonaws.com/exampleapp:$TAG
