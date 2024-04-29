@@ -1,7 +1,7 @@
 #!/bin/bash
 export TAG=$1
 export CONTAINER_NAME=$2
-echo "GITHUB sources --"
+echo "GITHUB sources -- 1"
 
 aws ecr get-login-password --region eu-west-3 | sudo docker login --username AWS --password-stdin 992382634925.dkr.ecr.eu-west-3.amazonaws.com
 COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
