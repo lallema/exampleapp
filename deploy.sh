@@ -9,7 +9,17 @@ echo "COMMAND info == docker pull 992382634925.dkr.ecr.eu-west-3.amazonaws.com/e
 echo "COMMAND info == docker run -dti -p 80:3000 --name $CONTAINER_NAME 992382634925.dkr.ecr.eu-west-3.amazonaws.com/exampleapp:$TAG"
 docker ps -a
 docker images
-docker stop $CONTAINER_NAME
-docker container rm $CONTAINER_NAME
+
+# Vérifier si le conteneur existe et s'il est en cours d'exécution
+if docker ps -a | grep -q "$CONTAINER_NAME"; then
+    echo "Le conteneur existe, arrêt et suppression..."
+    # Arrêter le conteneur s'il est en cours d'exécution
+    docker stop "$CONTAINER_NAME"
+    # Supprimer le conteneur
+    docker container rm $CONTAINER_NAME
+fi
+
+# Démarrer un nouveau conteneur
+echo "Démarrage d'un nouveau conteneur..."
 docker pull 992382634925.dkr.ecr.eu-west-3.amazonaws.com/exampleapp:$TAG
 docker run -dti -p 80:3000 --name $CONTAINER_NAME 992382634925.dkr.ecr.eu-west-3.amazonaws.com/exampleapp:$TAG
