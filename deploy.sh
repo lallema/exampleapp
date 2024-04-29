@@ -3,10 +3,11 @@ export TAG=$1
 export CONTAINER_NAME=$2
 echo "GITHUB sources --"
 
-aws ecr get-login-password --region $AWS_DEFAULT_REGION | sudo docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
+aws ecr get-login-password --region eu-west-3 | sudo docker login --username AWS --password-stdin 992382634925.dkr.ecr.eu-west-3.amazonaws.com
 COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
-IMAGE_TAG=${COMMIT_HASH:=latest}
-REPO_URL=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME
+#IMAGE_TAG=${COMMIT_HASH:=latest}
+IMAGE_TAG=latest
+REPO_URL=992382634925.dkr.ecr.eu-west-3.amazonaws.com/$IMAGE_REPO_NAME
 
 echo "Hostname = "`hostname`
 echo "COMMAND info == docker stop $CONTAINER_NAME"
@@ -23,6 +24,8 @@ if docker ps -a | grep -q "$CONTAINER_NAME"; then
     docker stop "$CONTAINER_NAME"
     # Supprimer le conteneur
     docker container rm $CONTAINER_NAME
+else
+    echo "no container found"
 fi
 
 # Démarrer un nouveau conteneur
