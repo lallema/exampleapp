@@ -2,6 +2,12 @@
 export TAG=$1
 export CONTAINER_NAME=$2
 echo "GITHUB sources --"
+
+aws ecr get-login-password --region $AWS_DEFAULT_REGION | sudo docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
+COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+IMAGE_TAG=${COMMIT_HASH:=latest}
+REPO_URL=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME
+
 echo "Hostname = "`hostname`
 echo "COMMAND info == docker stop $CONTAINER_NAME"
 echo "COMMAND info == docker container rm $CONTAINER_NAME"
