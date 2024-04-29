@@ -11,6 +11,10 @@ phases:
     commands:
       - docker build -t $REPO_URL:latest .
       - docker tag $REPO_URL:latest $REPO_URL:$IMAGE_TAG
+
+  post_build:
+    commands:
+      - echo "POST Build commands"
       - docker push $REPO_URL:$IMAGE_TAG
       - docker push $REPO_URL:latest
       - echo "$SSH_KEY" > ~/.ssh/id_rsa
@@ -18,16 +22,3 @@ phases:
       - echo "INSTANCE=$INSTANCE"
       - echo "IMAGE_TAG=$IMAGE_TAG"
       - ssh -o StrictHostKeyChecking=no ubuntu@$INSTANCE "/home/ubuntu/app-git/deploy.sh $IMAGE_TAG $CONTAINER_NAME"
-
-  post_build:
-    commands:
-      - echo "POST Build commands"
-#      - sudo usermod -aG docker ubuntu
-#      - docker push $REPO_URL:$IMAGE_TAG
-#      - docker push $REPO_URL:latest
-#      - echo "$SSH_KEY"
-#      - echo "$SSH_KEY" > ~/.ssh/id_rsa
-#      - chmod 400 ~/.ssh/id_rsa
-#      - echo "INSTANCE=$INSTANCE"
-#      - echo "IMAGE_TAG=$IMAGE_TAG"
-#      - ssh -o StrictHostKeyChecking=no ubuntu@$INSTANCE "/home/ubuntu/app/deploy.sh $IMAGE_TAG $CONTAINER_NAME"
