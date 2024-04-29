@@ -1,7 +1,7 @@
 #!/bin/bash
 export TAG=$1
 export CONTAINER_NAME=$2
-echo "GITHUB sources"
+echo "GITHUB sources --"
 echo "Hostname = "`hostname`
 echo "COMMAND info == docker stop $CONTAINER_NAME"
 echo "COMMAND info == docker container rm $CONTAINER_NAME"
